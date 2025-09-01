@@ -22,9 +22,9 @@ public class NewMonoBehaviourScript : MonoBehaviour
     IEnumerator FiringGun()//이거 와 안되노 시발 좆같은 새끼야 이렇게 하라메
     {
         gunFire.Play();
-        handgun.GetComponent<Animation>().Play("HandgunFire");
+        handgun.GetComponent<Animator>().Play("HandgunFire");
         yield return new WaitForSeconds(0.5f);
-        handgun.GetComponent<Animation>().Play("New State");
+        handgun.GetComponent<Animator>().Play("New State");
         yield return new WaitForSeconds(0.1f);
         canFire = true;
     }
