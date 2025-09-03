@@ -7,29 +7,61 @@ public class NewMonoBehaviourScript : MonoBehaviour
     [SerializeField] GameObject handgun;
     [SerializeField] bool canFire = true;
     [SerializeField] private GameObject extraCross;
+
     [SerializeField] private AudioSource EmptyGunSound;
+
+    //[SerializeField] private AudioSource ZoomSound;
+    //[SerializeField] private GameObject ZoomMotion;//이거 필요없네 생각해보니까 
     void Update()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(1)) //mouseButtonDown으로 하면 꾹눌러도 되나?
         {
-            if(canFire == true)
+            StartCoroutine(Zoom());
+            if (Input.GetMouseButtonDown(0))
             {
-                if (GlobalAmmo.handgunAmmoCount == 0)
+                if (canFire == true)
                 {
-                    canFire = false;
-                    StartCoroutine(EmptyGun());
+                    if (GlobalAmmo.handgunAmmoCount == 0)
+                    {
+                        canFire = false;
+                        StartCoroutine(EmptyGun());
+                    }
+                    else
+                    {
+                        canFire = false;
+                        StartCoroutine(ZoomFiringGun());
+                    }
                 }
-                else
-                {
-                    canFire = false;
-                    StartCoroutine(FiringGun());
-                }
+
             }
-            
         }
+        else
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (canFire == true)
+                {
+                    if (GlobalAmmo.handgunAmmoCount == 0)
+                    {
+                        canFire = false;
+                        StartCoroutine(EmptyGun());
+                    }
+                    else
+                    {
+                        canFire = false;
+                        StartCoroutine(FiringGun());
+                    }
+                }
+
+            }
+        }
+
+
+
+
     }
 
-    IEnumerator FiringGun()//이거 와 안되노 시발 좆같은 새끼야 이렇게 하라메
+    IEnumerator FiringGun() //이거 와 안되노 시발 좆같은 새끼야 이렇게 하라메
     {
         gunFire.Play();
         extraCross.SetActive(true);
@@ -47,6 +79,25 @@ public class NewMonoBehaviourScript : MonoBehaviour
         EmptyGunSound.Play();
         yield return new WaitForSeconds(0.6f);
         canFire = true;
-        
-    }//TODO: 아마 모션중에 고정 위치값이 아니라 델타 값으로 모션을 바꿀 수있는게 있을거 같은데 그거 찾아서 만드는게 나을듯
+
+    }
+
+    IEnumerator Zoom() // 줌 
+    {
+        //ZoomSound.Play();
+        handgun.GetComponent<Animator>().Play("Zoom");
+        yield break;
+    }
+    IEnumerator ZoomFiringGun()
+    {
+        gunFire.Play();
+        extraCross.SetActive(true);
+        GlobalAmmo.handgunAmmoCount -= 1;
+        handgun.GetComponent<Animator>().Play("ZoomHandgunFire");
+        yield return new WaitForSeconds(0.5f);
+        handgun.GetComponent<Animator>().Play("Zoom");
+        extraCross.SetActive(false);
+        yield return new WaitForSeconds(0.1f);
+        canFire = true;
+    }
 }
