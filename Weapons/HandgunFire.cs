@@ -48,5 +48,5 @@ public class NewMonoBehaviourScript : MonoBehaviour
         yield return new WaitForSeconds(0.6f);
         canFire = true;
         
-    }
+    }//TODO: 아마 모션중에 고정 위치값이 아니라 델타 값으로 모션을 바꿀 수있는게 있을거 같은데 그거 찾아서 만드는게 나을듯
 }
