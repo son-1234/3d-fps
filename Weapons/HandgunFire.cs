@@ -16,7 +16,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
     {
         if (Input.GetMouseButton(1)) //mouseButtonDown으로 하면 꾹눌러도 되나?
         {
-            StartCoroutine(Zoom());
+            handgun.GetComponent<Animator>().Play("Zoom");
             if (Input.GetMouseButtonDown(0))
             {
                 if (canFire == true)
@@ -37,6 +37,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
         }
         else
         {
+            handgun.GetComponent<Animator>().Play("New State");
             if (Input.GetMouseButtonDown(0))
             {
                 if (canFire == true)
@@ -67,8 +68,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
         extraCross.SetActive(true);
         GlobalAmmo.handgunAmmoCount -= 1;
         handgun.GetComponent<Animator>().Play("HandgunFire");
-        yield return new WaitForSeconds(0.5f);
-        handgun.GetComponent<Animator>().Play("New State");
+        yield return new WaitForSeconds(git .Play("New State");
         extraCross.SetActive(false);
         yield return new WaitForSeconds(0.1f);
         canFire = true;
@@ -82,12 +82,12 @@ public class NewMonoBehaviourScript : MonoBehaviour
 
     }
 
-    IEnumerator Zoom() // 줌 
-    {
-        //ZoomSound.Play();
-        handgun.GetComponent<Animator>().Play("Zoom");
-        yield break;
-    }
+    // IEnumerator Zoom() // 줌 
+    // {
+    //     //ZoomSound.Play();
+    //     handgun.GetComponent<Animator>().Play("Zoom");
+    //     yield break;
+    // }
     IEnumerator ZoomFiringGun()
     {
         gunFire.Play();
