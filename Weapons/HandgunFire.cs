@@ -37,7 +37,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
         }
         else
         {
-            handgun.GetComponent<Animator>().Play("New State");
+            //handgun.GetComponent<Animator>().Play("New State");
             if (Input.GetMouseButtonDown(0))
             {
                 if (canFire == true)
@@ -68,7 +68,8 @@ public class NewMonoBehaviourScript : MonoBehaviour
         extraCross.SetActive(true);
         GlobalAmmo.handgunAmmoCount -= 1;
         handgun.GetComponent<Animator>().Play("HandgunFire");
-        yield return new WaitForSeconds(git .Play("New State");
+        yield return new WaitForSeconds(0.5f);
+        handgun.GetComponent<Animator>().Play("New State");
         extraCross.SetActive(false);
         yield return new WaitForSeconds(0.1f);
         canFire = true;
